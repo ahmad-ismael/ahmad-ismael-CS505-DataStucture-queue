@@ -58,14 +58,18 @@ void NthElement(Queue &Q, int n) {
 
     cout << "Number =" << n << endl;
     cout << "LENGTH =" << length << endl;
-    if(n > length)
-        cout << "Number bigger than the length =" << endl;
-    else
+    
+    if(n > length || n < 1) {
+        cout << "Invalid position" << endl;
+    }
+    else {
         for(int i = 1; i<=length; i++) {
             Q.dequeue(el);
-            if(i != n) 
+            if(i != n) {
                 Q.enqueue(el);
+            }
         }
+    }
 }
 
 bool EqualQueues(Queue &Q1, Queue &Q2) {
@@ -81,6 +85,18 @@ bool EqualQueues(Queue &Q1, Queue &Q2) {
             return false;
     }
     return true;
+}
+
+int min(Queue &Q) {
+    Queue tmp(Q);
+    int min, x;
+    tmp.queueFront(min);
+    while (!tmp.queueIsEmpty()) {
+        tmp.dequeue(x);
+        if(x < min)
+            min = x;
+    }
+    return min;
 }
 
 int main () {
@@ -105,6 +121,11 @@ int main () {
     Queue q3(q1);
     if(EqualQueues(q1,q3)) cout << "Equal" << endl;
     else cout << "Not Equal" << endl;
+
+    cout << "MIN of q = " << min(q) << endl;
+    cout << "MIN of q1 = " << min(q1) << endl;
+    cout << "MIN of q2 = " << min(q2) << endl;
+    cout << "MIN of q3 = " << min(q3) << endl;
     
     return 0;
 }
